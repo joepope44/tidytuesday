@@ -1,0 +1,31 @@
+ls
+README.md		wk1_aus_fires		wk4_sf_trees
+spotify.png		wk2_password
+tidytuesday.Rproj	wk3_spotify
+]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mdeleted:    2020_1_7_aus_wildfires.R[m
+	[31mdeleted:    aus_Fires.img.png[m
+	[31mdeleted:    passwords.png[m
+	[31mdeleted:    passwords.rmd[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.DS_Store[m
+	[31m.Rhistory[m
+	[31m.Rproj.user/[m
+	[31mspotify.png[m
+	[31mtidytuesday.Rproj[m
+	[31mwk1_aus_fires/[m
+	[31mwk2_password/[m
+	[31mwk3_spotify/[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ git add .
