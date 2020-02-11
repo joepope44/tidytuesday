@@ -1,31 +1,12 @@
-ls
-README.md		wk1_aus_fires		wk4_sf_trees
-spotify.png		wk2_password
-tidytuesday.Rproj	wk3_spotify
-]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mdeleted:    2020_1_7_aus_wildfires.R[m
-	[31mdeleted:    aus_Fires.img.png[m
-	[31mdeleted:    passwords.png[m
-	[31mdeleted:    passwords.rmd[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	[31m.DS_Store[m
-	[31m.Rhistory[m
-	[31m.Rproj.user/[m
-	[31mspotify.png[m
-	[31mtidytuesday.Rproj[m
-	[31mwk1_aus_fires/[m
-	[31mwk2_password/[m
-	[31mwk3_spotify/[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ git add .
+git push origin master[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbracnh[K[K[Knch
+[?1h=* [32mmaster[m[m
+[K[?1l>]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ git push origin master
+Enumerating objects: 36, done.
+Counting objects:   2% (1/36)   Counting objects:   5% (2/36)   Counting objects:   8% (3/36)   Counting objects:  11% (4/36)   Counting objects:  13% (5/36)   Counting objects:  16% (6/36)   Counting objects:  19% (7/36)   Counting objects:  22% (8/36)   Counting objects:  25% (9/36)   Counting objects:  27% (10/36)   Counting objects:  30% (11/36)   Counting objects:  33% (12/36)   Counting objects:  36% (13/36)   Counting objects:  38% (14/36)   Counting objects:  41% (15/36)   Counting objects:  44% (16/36)   Counting objects:  47% (17/36)   Counting objects:  50% (18/36)   Counting objects:  52% (19/36)   Counting objects:  55% (20/36)   Counting objects:  58% (21/36)   Counting objects:  61% (22/36)   Counting objects:  63% (23/36)   Counting objects:  66% (24/36)   Counting objects:  69% (25/36)   Counting objects:  72% (26/36)   Counting objects:  75% (27/36)   Counting objects:  77% (28/36)   Counting objects:  80% (29/36)   Counting objects:  83% (30/36)   Counting objects:  86% (31/36)   Counting objects:  88% (32/36)   Counting objects:  91% (33/36)   Counting objects:  94% (34/36)   Counting objects:  97% (35/36)   Counting objects: 100% (36/36)   Counting objects: 100% (36/36), done.
+Delta compression using up to 4 threads.
+Compressing objects:   3% (1/30)   Compressing objects:   6% (2/30)   Compressing objects:  10% (3/30)   Compressing objects:  13% (4/30)   Compressing objects:  16% (5/30)   Compressing objects:  20% (6/30)   Compressing objects:  23% (7/30)   Compressing objects:  26% (8/30)   Compressing objects:  30% (9/30)   Compressing objects:  33% (10/30)   Compressing objects:  36% (11/30)   Compressing objects:  40% (12/30)   Compressing objects:  43% (13/30)   Compressing objects:  46% (14/30)   Compressing objects:  50% (15/30)   Compressing objects:  53% (16/30)   Compressing objects:  56% (17/30)   Compressing objects:  60% (18/30)   Compressing objects:  63% (19/30)   Compressing objects:  66% (20/30)   Compressing objects:  70% (21/30)   Compressing objects:  73% (22/30)   Compressing objects:  76% (23/30)   Compressing objects:  80% (24/30)   Compressing objects:  83% (25/30)   Compressing objects:  86% (26/30)   Compressing objects:  90% (27/30)   Compressing objects:  93% (28/30)   Compressing objects:  96% (29/30)   Compressing objects: 100% (30/30)   Compressing objects: 100% (30/30), done.
+Writing objects:   2% (1/35)   Writing objects:   5% (2/35)   Writing objects:   8% (3/35)   Writing objects:  11% (4/35)   Writing objects:  14% (5/35)   Writing objects:  17% (6/35)   Writing objects:  20% (7/35)   Writing objects:  22% (8/35)   Writing objects:  25% (9/35)   Writing objects:  28% (10/35)   Writing objects:  31% (11/35)   Writing objects:  34% (12/35)   Writing objects:  37% (13/35)   Writing objects:  40% (14/35)   Writing objects:  42% (15/35)   Writing objects:  45% (16/35)   Writing objects:  48% (17/35)   Writing objects:  51% (18/35)   Writing objects:  54% (19/35)   Writing objects:  57% (20/35)   Writing objects:  60% (21/35)   Writing objects:  62% (22/35)   Writing objects:  65% (23/35)   Writing objects:  68% (24/35)   Writing objects:  71% (25/35)   Writing objects:  74% (26/35)   Writing objects:  77% (27/35)   Writing objects:  80% (28/35)   Writing objects:  82% (29/35)   Writing objects:  85% (30/35)   Writing objects:  88% (31/35)   Writing objects:  91% (32/35)   Writing objects:  94% (33/35)   Writing objects:  97% (34/35)   Writing objects: 100% (35/35)   Writing objects: 100% (35/35), 517.96 KiB | 5.34 MiB/s, done.
+Total 35 (delta 0), reused 0 (delta 0)
+To https://github.com/joepope44/tidytuesday.git
+   c69339d..98e7a90  master -> master
+]0;~/Projects/tidytuesdayJosephs-MacBook-Air-2:tidytuesday josephpope$ [KJosephs-MacBook-Air-2:tidytuesday josephpope$ [KJosephs-MacBook-Air-2:tidytuesday josephpope$ 
