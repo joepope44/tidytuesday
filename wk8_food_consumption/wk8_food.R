@@ -4,11 +4,9 @@ library(emojifont)
 
 food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
 
-str(food_consumption)
-
-summary(food_consumption)
-
-food_consumption%>% group_by(food_category) %>% summarise(mean(co2_emmission))
+food_consumption %>% 
+  filter(str_detect(food_category, "Milk")) %>% 
+  arrange(desc(consumption))
   
 food_cats <- unique(food_consumption$food_category)
 
@@ -46,6 +44,9 @@ ggplot(df, aes(food_category, consumption, fill = factor(animal_flag))) +
   theme(panel.grid = element_blank(),
         plot.margin = margin(10, 10, 10, 50),
         text = element_text(family = "Rockwell"),
+        plot.subtitle = element_text(face = "italic",
+                                     margin = margin(b = 10)),
         plot.title = element_text(size = 18,
                                   margin = margin(b=2))) 
+
 
