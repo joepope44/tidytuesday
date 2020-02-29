@@ -1,0 +1,184 @@
+---
+title: "measles"
+author: "Joseph Pope"
+date: "2/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+```
+
+
+```{r data}
+
+measles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv')
+
+# https://www.cdc.gov/vaccines/imz-managers/coverage/childvaxview/data-reports/mmr/trend/index.html
+
+```
+```{r EDA}
+
+# count of school type 
+measles %>%
+  group_by(type) %>% 
+  tally()
+
+measles %>% 
+  group_by(mmr) %>% 
+  tally()
+
+measles %>% 
+  group_by(overall) %>% 
+  tally()
+
+m2 <- measles %>% 
+  filter(mmr != -1) 
+
+```
+
+
+```{r}
+m2 %>% 
+  ggplot(aes(mmr, overall, alpha = .2)) + 
+  geom_point(show.legend = FALSE) + 
+  facet_wrap(~ state)
+
+
+m2 %>% 
+  ggplot(aes(fct_reorder(state, mmr), mmr)) + 
+  geom_boxplot() + 
+  coord_flip()
+
+m2 %>% 
+  ggplot(aes(fct_reorder(state, mmr), mmr, color = type)) + 
+  geom_point() + 
+  geom_jitter() + 
+  coord_flip()
+
+
+
+
+```
+
+
+```{r}
+m3 <- measles %>% 
+  mutate(xrel_cnt = round(xrel * enroll / 100, 0),
+         xmed_cnt = round(xmed * enroll / 100, 0), 
+         xper_cnt = round(xper * enroll / 100, 0)) %>% 
+  group_by(name, type, city, county, state) %>% 
+  summarize(enroll = round(mean(enroll), 0),
+            xrel_cnt = sum(xrel_cnt, na.rm = TRUE), 
+            xmed_cnt = sum(xmed_cnt, na.rm = TRUE),
+            xper_cnt = sum(xper_cnt, na.rm = TRUE)) %>% 
+  ungroup()
+  
+```
+
+```{r}
+m4 <- m3 %>% 
+  group_by(state) %>% 
+  summarise_if(is.numeric, sum, na.rm = TRUE) %>% 
+    ungroup() %>% 
+  rename("personal" = xper_cnt, 
+         "medical" = xmed_cnt, 
+         "religious" = xrel_cnt) %>% 
+  filter(enroll != 0) %>% 
+  mutate(enroll = enroll - personal - medical - religious) %>% 
+  gather(key = "category", value = "val", 
+  "religious", "medical", "personal" , "enroll")
+```
+
+```{r}
+
+#by state 
+m4 %>% 
+  ggplot(aes(fct_rev(state), val, fill = category)) + 
+  geom_col(position = "fill") + 
+  coord_flip() + 
+  xlab(NULL) + 
+  ylab(NULL)
+
+m4 %>% 
+  ggplot(aes(state, val, fill = category, group = category)) + 
+  geom_col() + 
+  coord_flip() + 
+  xlab(NULL) + 
+  ylab(NULL) + 
+  scale_y_continuous(labels = scales::percent_format())
+
+# perhaps better to show number of counties with high percentage of 
+# unvaccinated? state with most counties, etc.  
+
+
+```
+
+```{r}
+
+selected_state = "Washington"
+
+state_df <- measles %>% 
+  filter(mmr != -1,
+         state == selected_state) %>% 
+  mutate(state_avg = 88.5, #Washington state average mmr vac rate
+          diff = mmr - state_avg) %>%
+  group_by(index, name, type, city, county, district) %>% 
+  summarise_if(.predicate = is.numeric, .funs = mean) %>% 
+  group_by(lat, lng, enroll) %>% 
+  rename(long = lng) %>% 
+  summarise(mmr = mean(mmr), 
+            diff = mean(diff)) %>% 
+  ungroup() %>% 
+  filter(!is.na(lat))
+  
+state_map <- map_data("state") %>% filter(region == tolower(selected_state))
+
+```
+
+```{r}
+
+library(maps)
+library(extrafont)
+
+p <- ggplot(state_map) +
+  geom_polygon(aes(long, lat, group = group), 
+               fill = "white", color = "dark gray") +
+  coord_map()
+
+# CI in Washinton is +/- 4.9% 
+# subset(state_df, diff < -12
+
+p <- p + 
+  geom_point(data = state_df, 
+             aes(x = long, y = lat, color = mmr),
+             shape = 18, size = 2, alpha = .7) + 
+  theme_void() + 
+  scale_color_continuous(breaks = c(0, 20, 40, 60, 80)) + 
+  labs(color = "Vaccination Rate", size = "Enrollment Size") +
+  ggtitle(str_c("Measles, Mumps and Rubella Vaccinations in ", selected_state)) + 
+  theme(text = element_text(family = "Rockwell"),
+        legend.position = "bottom",
+        legend.direction = "horizontal") 
+
+p
+```
+
+```{r}
+
+library(rtweet)
+
+## quick overview of rtweet functions
+vignette("auth", package = "rtweet")
+
+## search for 18000 tweets using the rstats hashtag
+rt <- search_tweets(
+  "joepope44", n = 18000, include_rts = FALSE
+)
+
+rtweet::post_tweet("test")
+```
+
