@@ -1,10 +1,12 @@
 ---
 title: "Tidy Tuesday - Week 10 NHL Goals"
 output: html_notebook
+editor_options: 
+  chunk_output_type: console
 ---
 
 Download datasets 
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 game_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
 
@@ -17,6 +19,9 @@ Perform initial EDA
 ```{r}
 
 library(tidyverse)
+library(extrafont)
+# library(ggtext) need to upgrade version of R to install 
+library(ggrepel)
 
 game_goals %>% 
   filter(player == 'Alex Ovechkin') %>% 
@@ -48,13 +53,28 @@ top_df <- game_goals %>%
   summarise(goals = sum(goals, na.rm= TRUE), 
             shots = sum(shots, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(ifalex = ifelse(player == 'Alex Ovechkin', 1, 0)) %>% 
   filter(shots > 100, goals > 10)
+
+write_rds(top_df, "top_df")
 
 ```
 
 Build first draft of plot 
 ```{r}
+
+#create labels for Ovechkin and Gretzky  
+
+alex <- top_df %>% filter(player == 'Alex Ovechkin')
+wayne <- top_df %>% filter(player == 'Wayne Gretzky')
+
+a <- alex %>% 
+  filter(goals %in% range(goals) | shots %in% range(shots))
+
+w <- wayne %>% 
+  filter(goals %in% range(goals) | shots %in% range(shots))
+
+label_df <- 
+  bind_rows(a, w)
 
 p <- top_df %>% 
   ggplot(aes(goals, shots, group = player)) + 
@@ -65,17 +85,24 @@ p <- top_df %>%
 
 
 ```{r}
-library(extrafont)
+
+
 
 p + 
   geom_smooth(data = subset(top_df, player == 'Alex Ovechkin'),
-              method = 'loess', color = '#C8102E', span = 5) +
+              method = 'loess', color = '#C8102E', span = 2) +
   geom_point(data = subset(top_df, player == 'Alex Ovechkin'),
              color = '#C8102E', size = 3) +
   geom_smooth(data = subset(top_df, player == 'Wayne Gretzky'),
-              method = 'loess', color = '#111111') +
+              method = 'loess', color = '#111111', span = 2) +
   geom_point(data = subset(top_df, player == 'Wayne Gretzky'),
               color = '#111111', size = 3) + 
+  geom_text_repel(
+    data = label_df, 
+    aes(label = str_c(player, ", ", season)), 
+    segment.alpha = .9
+    ) +
+  # geom_text() + 
   xlab("Goals") + 
   ylab("Shots") + 
   labs(title = "Alex Ovechin vs. Wayne Gretsky", 
@@ -84,6 +111,5 @@ p +
   theme(text = element_text(family = "Rockwell"))
 
 
-
 ```
-
+ 
