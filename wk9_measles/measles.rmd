@@ -179,6 +179,8 @@ rt <- search_tweets(
   "joepope44", n = 18000, include_rts = FALSE
 )
 
-rtweet::post_tweet("test")
+rtweet::post_tweet(status = 
+"Experimented quite a bit and ended up with a not-very-informative viz, but still learned a lot. Tweeting this from Rstudio too, thanks to #rtweet! #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/wk9_measles",
+                   media = "000087.png")
 ```
 

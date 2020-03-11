@@ -1,0 +1,115 @@
+---
+title: "Tidy Tuesday - Week 10 NHL Goals"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+Download datasets 
+```{r message=FALSE, warning=FALSE}
+
+game_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
+
+top_250 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/top_250.csv')
+
+season_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/season_goals.csv')
+
+```
+Perform initial EDA 
+```{r}
+
+library(tidyverse)
+library(extrafont)
+# library(ggtext) need to upgrade version of R to install 
+library(ggrepel)
+
+game_goals %>% 
+  filter(player == 'Alex Ovechkin') %>% 
+  group_by(factor(goals)) %>% 
+  summarize(goals = n(),
+            shots = sum(shots),
+            perc = goals / shots)
+
+game_goals %>% 
+  filter(player == 'Wayne Gretzky') %>% 
+  filter(!is.na(shots) & !is.na(goals)) %>% 
+  group_by(factor(goals)) %>% 
+  summarize(goals = n(),
+            shots = sum(shots),
+            perc = goals / shots)
+
+
+```
+
+Analyze Top 250 players 
+
+```{r}
+
+top_players <- top_250$player[1:20]
+
+top_df <- game_goals %>% 
+  # filter(player %in% top_players) %>% 
+  group_by(player, season) %>% 
+  summarise(goals = sum(goals, na.rm= TRUE), 
+            shots = sum(shots, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  filter(shots > 100, goals > 10)
+
+write_rds(top_df, "top_df")
+
+```
+
+Build first draft of plot 
+```{r}
+
+#create labels for Ovechkin and Gretzky  
+
+alex <- top_df %>% filter(player == 'Alex Ovechkin')
+wayne <- top_df %>% filter(player == 'Wayne Gretzky')
+
+a <- alex %>% 
+  filter(goals %in% range(goals) | shots %in% range(shots))
+
+w <- wayne %>% 
+  filter(goals %in% range(goals) | shots %in% range(shots))
+
+label_df <- 
+  bind_rows(a, w)
+
+p <- top_df %>% 
+  ggplot(aes(goals, shots, group = player)) + 
+  geom_point(color = "plum2") + 
+  theme_classic()
+
+```
+
+
+```{r}
+
+
+
+p + 
+  geom_smooth(data = subset(top_df, player == 'Alex Ovechkin'),
+              method = 'loess', color = '#C8102E', span = 2) +
+  geom_point(data = subset(top_df, player == 'Alex Ovechkin'),
+             color = '#C8102E', size = 3) +
+  geom_smooth(data = subset(top_df, player == 'Wayne Gretzky'),
+              method = 'loess', color = '#111111', span = 2) +
+  geom_point(data = subset(top_df, player == 'Wayne Gretzky'),
+              color = '#111111', size = 3) + 
+  geom_text_repel(
+    data = label_df, 
+    aes(label = str_c(player, ", ", season)), 
+    segment.alpha = .9
+    ) +
+  # geom_text() + 
+  xlab("Goals") + 
+  ylab("Shots") + 
+  labs(title = "Alex Ovechin vs. Wayne Gretsky", 
+          subtitle = "Each dot is a player and season for Top 250 NHL Scorers", 
+       caption = "Joseph Pope | @joepope44") + 
+  theme(text = element_text(family = "Rockwell"))
+
+
+```
+ 
