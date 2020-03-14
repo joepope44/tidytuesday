@@ -104,3 +104,6 @@ plot_grid(title, plot_row, legend,
           ncol=1,
           rel_heights = c(0.1, 1, 0.1))
 
+#spread the good news 
+rtweet::post_tweet(media = "wk11_college_diversity/diversity.png",
+                   status = "Used cowplot for the first time, and more exposure to font and scaling challenges. #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/wk11_college_diversity")
