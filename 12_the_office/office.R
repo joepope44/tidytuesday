@@ -1,6 +1,5 @@
 source("setup.R")
 library(schrute)
-library(ggthemes)
 
 office_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv')
 
@@ -40,16 +39,18 @@ writer_counts <- ratings %>%
 df <- ratings %>% 
   left_join(writer_counts, 
             by = "writer") %>% 
-  rename(written_epsidoes = n)
+  rename(written_episodes = n)
 
+subtitle <- expression(paste("Which writers and seasons were favored by fans of ", italic("The Office"), "? (Min 2 episodes)"))
 
 df %>% 
-  filter(written_epsidoes > 1) %>% 
+  filter(written_episodes > 1) %>% 
   ggplot(aes(fct_reorder(writer, ratings, median), ratings)) + 
   # geom_boxplot(outlier.size = 1, alpha = 0) + 
-  geom_point(aes(color = season), size = 2.5) + 
+  geom_point(aes(color = season), size = 3) + 
+  geom_point(shape = 1, size = 3, colour = "black") + 
   coord_flip() + 
-  scale_color_viridis_d(option = "cividis", direction = -1, ) + 
+  scale_color_viridis_d(option = "cividis", direction = -1) + 
   ggthemes::theme_few() +
   theme(text = element_text(family = "Helvetica", color = "white"),
         axis.text = element_text(color = "white"), 
@@ -57,16 +58,22 @@ df %>%
         rect = element_rect(fill = "#1F2126"), 
         legend.key = element_rect(fill = "#1F2126"),
         plot.title = element_text(family = "Helvetica Bold",
-                                  size = 20, face = "bold",
+                                  size = 24, face = "bold",
                                   color = "white"),
+        plot.subtitle = element_text(margin = margin(6, 0, 14, 0)), 
+        plot.title.position = "plot",
+        plot.caption.position = "plot",
         plot.background = element_rect(fill = "#1F2126"),
         panel.background = element_rect(fill = "gray90"),
         panel.grid.major.x = element_line(color = "lightskyblue4", 
                                           linetype = "dotted")) + 
   labs(title = "The Office", 
-       subtitle = '"Sometimes I\'ll Start a Graph and I Don\'t Even Know Where It\'s Going."\n Ratings per Writer of Episode, minimum two episodes',
+       subtitle = subtitle,
        caption = "Joseph Pope | @joepope44",
        color = "Season") + 
   xlab("") + 
   ylab("Average IMDB Ratings")
 
+#spread the good news 
+rtweet::post_tweet(media = "12_the_office/office.png",
+                   status = "Sometimes I'll start a graph and I don't even know where it's going. I just hope I find it along the way. #rstats #tidytuesday ")
