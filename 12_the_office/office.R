@@ -60,7 +60,7 @@ df %>%
         plot.title = element_text(family = "Helvetica Bold",
                                   size = 24, face = "bold",
                                   color = "white"),
-        plot.subtitle = element_text(margin = margin(6, 0, 14, 0)), 
+        plot.subtitle = element_text(margin = margin(2, 0, 4, 0)), 
         plot.title.position = "plot",
         plot.caption.position = "plot",
         plot.background = element_rect(fill = "#1F2126"),
@@ -76,4 +76,4 @@ df %>%
 
 #spread the good news 
 rtweet::post_tweet(media = "12_the_office/office.png",
-                   status = "Sometimes I'll start a graph and I don't even know where it's going. I just hope I find it along the way. #rstats #tidytuesday ")
+                   status = "Sometimes I'll start a graph and I don't even know where it's going. I just hope I find it along the way. #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/12_the_office")
