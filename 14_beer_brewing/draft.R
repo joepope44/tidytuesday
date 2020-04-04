@@ -1,5 +1,10 @@
 source("setup.R")
 library(ggrepel)
+library(gganimate)
+library(transformr)
+library(gifski)
+
+# https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-31/readme.md
 
 brewing_materials <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-31/brewing_materials.csv')
 beer_taxed <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-31/beer_taxed.csv')
@@ -32,17 +37,42 @@ df <- brewing_materials %>%
   select(-contains("_type")) %>% 
   mutate(date = lubridate::ymd(str_c(year, month, "01", sep = "-")))
 
+#organize data and remove Hops, which has strange behavior when combined
 df2 <- df %>% 
+  filter(type != "Hops") %>% 
   group_by(type, date) %>% 
   summarize(month_current = sum(month_current), 
             month_prior_year = sum(month_prior_year)) %>% 
   mutate(label = ifelse(date == max(date), 
-                      type, ""))
+                      type, "")) %>% 
+  na.omit()
 
 # gganimate per year? facet by type?  
-df2 %>% 
-  ggplot(aes(date, month_current, color = type)) + 
-  geom_line() + 
-  geom_label_repel(aes(label = label))
+p <- df2 %>% 
+  ggplot(aes(date, month_current, color = type, group = type)) + 
+  ggplot2::scale_color_viridis_d() + 
+  geom_line(alpha = .6) + 
+  geom_smooth(method = "loess", se = FALSE) +
+  # geom_label_repel(aes(label = label)) + 
+  facet_wrap(~ type, scales = "free_y") + 
+  scale_x_date(date_breaks = "3 years", date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma_format(scale = 10e-6, accuracy = 1, suffix = "M")) + 
+  coord_cartesian(xlim=as.Date(c("2008-01-01","2017-01-01"))) + 
+  theme_clean() + 
+  theme(legend.position = "none") + 
+  labs(title = "Beer Materials Plummet in 2016", subtitle = "In Numbers of Barrels", caption = "Joseph Pope | @joepope44")+ 
+  xlab("") + 
+  ylab("") 
+  
+p2 <- p + 
+  transition_reveal(date) + 
+  transition_reveal(stat(x))
+
+# saving didn't work? had to open in html then save from there...
+anim_save("animated_brew.gif")
+
+#spread the good news 
+rtweet::post_tweet(media = "14_beer_brewing/anim_brew.gif",
+                   status = "Fun with gganimate and brewery materials!. #rstats #tidytuesday ")
 
 
