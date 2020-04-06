@@ -73,6 +73,6 @@ anim_save("animated_brew.gif")
 
 #spread the good news 
 rtweet::post_tweet(media = "14_beer_brewing/anim_brew.gif",
-                   status = "Fun with gganimate and brewery materials!. #rstats #tidytuesday ")
+                   status = "Fun with gganimate and brewery materials!. #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/14_beer_brewing")
 
 
