@@ -31,6 +31,6 @@ tdf_winners %>%
   
 #spread the good news 
 rtweet::post_tweet(media = "15_tour_de_france/tour_france.png",
-                   status = "Exploring Lance Armstrong's dominant run in the 2000s!#rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/15_tour_de_france")
+                   status = "Exploring Lance Armstrong's dominant run in the 2000s! #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/15_tour_de_france")
 
 
