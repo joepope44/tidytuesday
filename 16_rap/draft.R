@@ -1,6 +1,7 @@
 source("setup.R")
 library(ggdark)
 library(ggrepel)
+library(ggtext)
 
 tuesdata <- tidytuesdayR::tt_load(2020, week = 16)
 
@@ -33,23 +34,28 @@ r2 <- rankings %>%
                                str_c(artist, "\n", title),
                                      ""))
 
-r2 %>% 
+p <- r2 %>% 
   ggplot(aes(n1, points, color = era, label = artist_label)) + 
   # geom_point() +
-  geom_jitter(width = .2, alpha = 0.6, size = 3) + 
+  geom_jitter(width = .1, alpha = 0.6, size = 3) + 
   ggdark::dark_theme_bw() +
-  scale_x_continuous(breaks = seq(1:10), limits = c(0, 10)) + 
+  scale_x_continuous(breaks = seq(1:10), limits = c(.5, 10)) +
   scale_y_continuous(breaks = c(25, 50, 75, 100, 125, 150)) + 
-  labs(title = "The weak or the strong, who got it goin' on?", 
-       subtitle = 'Biggie Smalls\' "Juicy" runaway most #1 votes by 107 music critics.',
+  labs(title = "The weak or the **strong**, who got it goin' on?", 
+       subtitle = 'Biggie Smalls\' "Juicy" runaway most #1 votes by 107 music critics.\nComparing to 2Pac\'s "Dear Mama".',
        caption = "Data: BBC Music\nJoseph Pope | @joepope44") + 
   xlab("Total #1 Ranked Votes") + 
   ylab("Total Points, All Rankings") + 
-  ggrepel::geom_label_repel(show.legend = FALSE, direction = "x", 
-                            nudge_x = c(-4, 4)) +
+  ggrepel::geom_label_repel(show.legend = FALSE, direction = "x", segment.alpha = .5, nudge_x = c(-4, 4), family = "Garamond") +
   theme(legend.position = "bottom",
-        legend.title = element_blank()) 
+        legend.title = element_blank(), 
+        text = element_text(family = "Garamond"), 
+        plot.title = element_markdown(size = 20, margin = margin(0,0,2,0)),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(margin = margin(2,0,10,0)),
+        axis.title.x = element_text(margin = margin(10,0,0,0)),
+        panel.grid.minor = element_blank()) 
 
-# TO DO fix fonts and margins   
-  
-
+#spread the good news 
+rtweet::post_tweet(media = "15_tour_de_france/tour_france.png",
+                   status = "Exploring Lance Armstrong's dominant run in the 2000s! #rstats #tidytuesday https://github.com/joepope44/tidytuesday/tree/master/15_tour_de_france")
