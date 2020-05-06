@@ -1,0 +1,22 @@
+---
+title: "Tweet Notebook"
+output: html_notebook
+---
+
+```{r rtweet, include=FALSE}
+library(rtweet)
+```
+
+
+# 2020-4-27 GDPR 
+```{r gdpr}
+rtweet::post_tweet(media = "17_gdpr/gdpr.png",
+                   status = "Used textmineR to explore GDPR summary text violations. Results of LDA topic modeling in scatterplot, showing coherence vs. prevalence. #rstats #TidyTuesday")
+
+```
+# 2020-05-04 Broadway Shows 
+```{r}
+rtweet::post_tweet(media = "18_broadway/bway.png",
+                   status = "Tried a few different things and ended up with a basic scatterplot. Y-axis is total share of weekly gross $$$. #rstats #TidyTuesday")
+```
+
