@@ -62,3 +62,4 @@ review_rec <- recipe(grade ~ text, data = user_reviews) %>%
 review_prep <- prep(review_rec)
 
 review_prep %>%  juice()
+ 

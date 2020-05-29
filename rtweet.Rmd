@@ -20,3 +20,9 @@ rtweet::post_tweet(media = "18_broadway/bway.png",
                    status = "Tried a few different things and ended up with a basic scatterplot. Y-axis is total share of weekly gross $$$. #rstats #TidyTuesday")
 ```
 
+# 2020-05-24 Beach Volleyball 
+```{r}
+rtweet::post_tweet(media = "21_beach_volleyball/vball.png",
+                   status = "'Solarized' seemed like an appropriate theme to handle beach volleyball data. #rstats #TidyTuesday")
+```
+
