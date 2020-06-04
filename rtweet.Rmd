@@ -26,3 +26,10 @@ rtweet::post_tweet(media = "21_beach_volleyball/vball.png",
                    status = "'Solarized' seemed like an appropriate theme to handle beach volleyball data. #rstats #TidyTuesday")
 ```
 
+# 2020-05-31 Cocktails 
+```{r}
+rtweet::post_tweet(media = "22_cocktails/cocktails.png",
+                   status = "#TidyTuesday...after dark! Visualized correlation pairs of cocktails and graphed the relationships. #rstats")
+```
+
+
