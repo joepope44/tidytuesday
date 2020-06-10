@@ -66,7 +66,7 @@ speed2 %>%
   scale_x_continuous(expand = c(.1, .1)) + 
   labs(
     title = "Marble Racing: Fastest and Slowest Team Members",
-    subtitle = "By Fastest Average Lap Time (seconds)",
+    subtitle = "By Fastest Average Lap Time (in seconds)",
     caption = "Joseph Pope | @joepope44", 
     y = NULL, 
     x = NULL

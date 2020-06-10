@@ -32,4 +32,10 @@ rtweet::post_tweet(media = "22_cocktails/cocktails.png",
                    status = "#TidyTuesday...after dark! Visualized correlation pairs of cocktails and graphed the relationships. #rstats")
 ```
 
+# 2020-06-04 Marble Racing 
+
+```{r}
+rtweet::post_tweet(media = "23_marbles/marbles.png",
+                   status = "Manually created this dumbell chart to show slow and fast members of the same team. Snowy is just really holding Snowflake back. #sad #TidyTuesday #rstats")
+```
 
