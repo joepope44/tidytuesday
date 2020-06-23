@@ -36,7 +36,7 @@ first_firsts <- firsts %>%
   )
 
 # Showcase the first man and woman selected
-first_firsts %>% 
+p1 <-first_firsts %>% 
   ggplot(aes(x = minYear, y = fct_rev(category), color = gender)) + 
   geom_point(size = 3) +
   geom_jitter(data = firsts, aes(x = year, y = fct_rev(category)), alpha = 0.4, size = .8, shape = 23, height = .2) + 
@@ -74,6 +74,8 @@ first_firsts %>%
   ) + 
   coord_cartesian(clip = "off")
 
+
+ggsave("24_black_achievements/ggsave_test.png", p1, height = 6, width = 11, units = "in", dpi = 300)
 
 # # Stacked Area Chart - didn't work very well. Not sure why
 # decades %>%   
