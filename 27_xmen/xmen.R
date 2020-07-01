@@ -34,7 +34,7 @@ char2 %>%
   theme(
     text = element_text(family = "Comic Sans MS"),
     plot.title = element_text(face = "bold"),
-    rect = element_rect(fill = "#ADA258")
+    rect = element_rect(fill = "#EFEE3B") # from Wolverine's outfit
   )
   
 
