@@ -39,3 +39,21 @@ rtweet::post_tweet(media = "23_marbles/marbles.png",
                    status = "Manually created this dumbell chart to show slow and fast members of the same team. Snowy is just really holding Snowflake back. #sad #TidyTuesday #rstats")
 ```
 
+# 2020-06-15 Firsts African Americans
+```{r}
+rtweet::post_tweet(media = "24_black_achievements/firsts.png", 
+                   status = "Tried several things, but think this one shows impact of Civil War and Civil Rights Act, both before and after they occur. #TidyTuesday #rstats https://github.com/joepope44/tidytuesday/blob/master/24_black_achievements/black_achievements.R")
+```
+
+# 2020-06-23 Juneteenth
+```{r}
+rtweet::post_tweet(media = "25_juneteenth/routes.png", 
+                   status = "Tried and failed so many things here. My first time building a map with this kind of detail. Very challenging! #TidyTuesday #rstats https://github.com/joepope44/tidytuesday/tree/master/25_juneteenth")
+```
+
+# 2020-07-01 X-Men Claremont Run 
+```{r}
+rtweet::post_tweet(media = "27_xmen/xmen.png", 
+                   status = "Perfect time to use COMIC SANS! #TidyTuesday #rstats @ClaremontRun https://github.com/joepope44/tidytuesday/tree/master/27_xmen")
+```
+
