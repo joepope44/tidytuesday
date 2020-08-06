@@ -1,9 +1,6 @@
----
-title: TidyTuesday
----
+# TidyTuesday
 
-
-## Weekly Contest of Data Visualization in R
+### Weekly Contest of Data Visualization in R
 
 Using ggplot, the tidyverse and a host of other packages in R. 
 
@@ -21,7 +18,7 @@ Supplmental graphic showing average annual sunlight for the EU
 
 ***
 
-### [27]
+### [27] X-Men: Claremont Run 
 
 ### [25]
 
