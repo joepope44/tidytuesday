@@ -31,7 +31,7 @@ Supplmental graphic showing average annual sunlight for the EU
 
 *** 
 
-### [24](https://github.com/joepope44/tidytuesday/blob/master/24_black_achievements/black_achievements.R) Black Achievements
+### [24](https://github.com/joepope44/tidytuesday/blob/master/24_black_achievements/black_achievements.R) Notable African-American Achievements
 
 <img src="https://github.com/joepope44/tidytuesday/blob/master/24_black_achievements/firsts.png?raw=true" width=600>
 
